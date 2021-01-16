@@ -1,6 +1,6 @@
-# Contributing to the Online Purchasing Intention Predictor project
+# Contributing to Crime Reporting project
 
-This outlines how to propose a change to the Online Purchasing Intention Predictor project. Thank you so much for being willing to contribute to it.
+This outlines how to propose a change to the Crime Reporting project. Thank you so much for being willing to contribute to it.
 
 ### Pull request process
   
