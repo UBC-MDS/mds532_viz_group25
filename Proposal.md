@@ -17,7 +17,7 @@ The dataset includes information about four types of major violent crimes: homic
 
 # Research questions and usage scenario
 
-## Research Questions
+## Research questions
 
 Safety is one of the biggest concerns for people who are considering to relocate.  It then boils down to the question "Where is safe now and would the city remain safe in the future?"  The research question can be further split into following questions:
 
@@ -25,7 +25,7 @@ Safety is one of the biggest concerns for people who are considering to relocate
 
 2. Which city is the safest in the state?
 
-3. The total number of violent crimes in this city is increasing or descreasing over the recent decade?
+3. The total number of violent crimes in this city is increasing or decreasing over the recent decade?
 
 ## Usage scenario
 
@@ -33,7 +33,7 @@ John Doe has spent his entire life in his hometown. He never sets his foot into 
 
 The whole process of moving into a new city can be very stressful and time consuming. He has limit time/budgets to conduct a comprehensive analysis. He is seeking a quick answer to address his concerns regarding safety. The visualization tool, city crime visualizer, can serve this purpose. The app can display the crime data from 68 US cities over 4 decades in a fast and effective way. He can first quickly understand how the violent crimes evolve in different states. By comparison, he can filter out saftest states by look at the total number of crimes in the recent 5 years. Furthermore, he can find out cities with lowest number of crimes in the selected states. The app also displays the violent crime in four categories. Just in case, he is more concerned about any specific type of crime. 
 
-After a quick exploration, he can make a list of safest cities. With this info in mind, he can explore other factors such as weather, pleasurable activities and the cost of living in these candidate cities. 
+After a quick exploration, he can make a list of safest cities. With this info in mind, he can explore other factors such as weather, pleasurable activities and the cost of living of these candidate cities. 
 
 
 
