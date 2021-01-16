@@ -1,6 +1,6 @@
-# Contributing to Crime Reporting project
+# Contributing to DSCI532 Group 25
 
-This outlines how to propose a change to the Crime Reporting project. Thank you so much for being willing to contribute to it.
+This outlines how to propose a change to the our project. Thank you so much for being willing to contribute to it.
 
 ### Pull request process
   
