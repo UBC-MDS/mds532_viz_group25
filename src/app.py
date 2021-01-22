@@ -42,7 +42,7 @@ app.layout = dbc.Container([
             html.H6('Year:'),
             dcc.Dropdown(
                 id="year",
-                value=2014,  # REQUIRED to show the plot on the first page load
+                value=2015,  # REQUIRED to show the plot on the first page load
                 options=[{"label": col, "value": col} for col in df["year"].unique()],
             )
             ]),
@@ -107,7 +107,7 @@ def plot_altair(state,city,year,yrange):
     bar=alt.Chart(df_data_plot, title="City violent crime in 4 categories at year of interest").mark_bar(
     ).encode(alt.X("type", title="Violent Crime",axis = alt.Axis(labelAngle=-45)),
              alt.Y("value", title="Crime per 100K"),
-             alt.Color("type", title="Crime type"))
+             alt.Color("type", legend=None))
 
     text=bar.mark_text(dy=-5).encode(text=alt.Text('value', format='.2f'))
 
