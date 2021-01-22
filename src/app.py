@@ -19,54 +19,59 @@ app.layout = dbc.Container([
     html.H2('U.S. city crime visualizer'),
     dbc.Row([
         dbc.Col([
-            dbc.Row([html.Label([
-                'Year range',
-                dcc.RangeSlider(
-                    id="yrange",
-                    min=1975,
-                    max=2015,
-                    value=[1975, 2015],  # REQUIRED to show the plot on the first page load
-                    step=1,
-                    marks={1975: '1975', 2015: '2015'},
-                ),
-            ])]),
-            dbc.Row([html.Label([
-                'State',
-                dcc.Dropdown(
-                    id="state",
-                    value="California",  # REQUIRED to show the plot on the first page load
-                    options=[{"label": st_name, "value": st_name} for st_name in df["state_name"].unique()],
-                ),
-            ])]),
 
-            dbc.Row(html.Label([
-                'City',
-                dcc.Dropdown(
-                    id="city",
-                    value="Los Angeles",  # REQUIRED to show the plot on the first page load
-                    options=[{"label": col, "value": col} for col in
-                             df[df["state_name"] == "California"]["city_name"].unique()],
-                ),
-            ])),
+            html.Div([
+            html.H6('State:'),
+            dcc.Dropdown(
+                id="state",
+                value="California",  # REQUIRED to show the plot on the first page load
+                options=[{"label": st_name, "value": st_name} for st_name in df["state_name"].unique()],
+            ),
+            ]),
 
-            dbc.Row(html.Label([
-                'Year',
-                dcc.Dropdown(
-                    id="year",
-                    value=2014,  # REQUIRED to show the plot on the first page load
-                    options=[{"label": col, "value": col} for col in df["year"].unique()],
-                ),
-            ]))
-        ],md = 1),
+            html.Div([
+            html.H6('City:'),
+            dcc.Dropdown(
+                id="city",
+                value="Los Angeles",  # REQUIRED to show the plot on the first page load
+                options=[{"label": col, "value": col} for col in df[df["state_name"] == "California"]["city_name"].unique()],
+            ),
+            ]),
+
+            html.Div([
+            html.H6('Year:'),
+            dcc.Dropdown(
+                id="year",
+                value=2014,  # REQUIRED to show the plot on the first page load
+                options=[{"label": col, "value": col} for col in df["year"].unique()],
+            )
+            ]),
+
+        ],md = 2),
 
         dbc.Col([
+
             html.Iframe(
             id="scatter",
-            style={"border-width": "0", "width": "100%", "height": "400px"},
-        )])
+            style={"border-width": "0", "width": "140%", "height": "400px"},
+        ),
+
+            html.Div([
+            html.H6('Year range'),
+            dcc.RangeSlider(
+                id="yrange",
+                min=1975,
+                max=2015,
+                value=[1975, 2015],  # REQUIRED to show the plot on the first page load
+                step = 1,
+                marks={1975: '1975', 2015: '2015'},
+            )
+        ],style={'width': '86%'})
+
+        ])
+
     ])
 ])
-
 
 @app.callback(
     Output("city", "options"),
@@ -100,7 +105,7 @@ def plot_altair(state,city,year,yrange):
                      & (df.year <= yrange[1])]
 
     bar=alt.Chart(df_data_plot, title="City violent crime in 4 categories at year of interest").mark_bar(
-    ).encode(alt.X("type", title="Violent Crime"),
+    ).encode(alt.X("type", title="Violent Crime",axis = alt.Axis(labelAngle=-45)),
              alt.Y("value", title="Crime per 100K"),
              alt.Color("type", title="Crime type"))
 
