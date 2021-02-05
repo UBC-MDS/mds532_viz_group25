@@ -55,7 +55,7 @@ app.layout = dbc.Container(
                                 dbc.Col(
                                     [
                                         html.H1(
-                                            "US city crime visualization",
+                                            "U.S. city crime visualization",
                                             style={
                                                 "color": "white",
                                                 "text-align": "left",
@@ -66,7 +66,7 @@ app.layout = dbc.Container(
                                             html.P(
                                                 """
                         The bar chart is by default set to show the summative results of the state of California at 2015
-                        and the line chart is to show the evolution of summative results of the state of California """,
+                        and the line chart is to show the evolutions of summative results of the state of California """,
                                                 style={
                                                     "color": "white",
                                                     "width": "100%",
@@ -204,8 +204,8 @@ app.layout = dbc.Container(
         html.Hr(),
         html.P(
             f"""
-            This dashboard was made by Team 25 of MDS 2020 Cohort, link to GitHub https://github.com/UBC-MDS/mds532_viz_group25.
-            The dashboard was latest updated at {datetime.now().date()}
+            This dashboard was made by Team 25 of UBC MDS 2020 Cohort, the GitHub source can be found at https://github.com/UBC-MDS/mds532_viz_group25.
+            The latest dashboard was updated at {datetime.now().date()}
         """
         ),
     ]
@@ -274,10 +274,9 @@ def plot_altair(state, city, year):
     Output("line_chart", "srcDoc"),
     Input("state", "value"),
     Input("city", "value"),
-    Input("year", "value"),
     Input("yrange", "value"),
 )
-def plot_altair(state, city, year, yrange):
+def plot_altair(state, city, yrange):
 
     if city == None:
         df_select = df.loc[
