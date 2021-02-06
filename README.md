@@ -17,8 +17,8 @@ In general, the dashboard can clearly display the number of violent crimes in st
 
 ## Display of the dashboard
 
-![](dash_1.png)
-![](dash_2.png)
+![](dash_hist.png)
+![](dash_line.png)
 
 ## Requirements
 
