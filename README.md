@@ -22,7 +22,7 @@ In general, the dashboard can clearly display the number of violent crimes in st
 
 ## Requirements
 
-Please check the requirements.txt in this repo.
+Please check the [requirements](https://github.com/UBC-MDS/mds532_viz_group25/blob/main/requirements.txt) in this repo.
 
 ## License
 
