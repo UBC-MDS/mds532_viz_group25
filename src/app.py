@@ -5,7 +5,10 @@ import dash_bootstrap_components as dbc
 from dash.dependencies import Input, Output, State
 import altair as alt
 import pandas as pd
+import numpy as np
 from datetime import datetime
+from vega_datasets import data
+
 
 # Read in global data
 df = pd.read_csv("data/processed/clean_data.csv",  index_col=0)
@@ -65,7 +68,8 @@ app.layout = dbc.Container(
                                         dbc.Collapse(
                                             html.P(
                                                 """
-                        The bar chart is by default set to show the summative results of the state of California at 2015
+                        This is a dashboard visualization of violent crimes in U.S. cities.\n
+                        The map is by default set to show the background map of U.S. cities, the bar chart is by default set to show the summative results of the state of California at 2015
                         and the line chart is to show the evolutions of summative results of the state of California """,
                                                 style={
                                                     "color": "white",
@@ -94,6 +98,54 @@ app.layout = dbc.Container(
             ]
         ),
         html.Br(),
+        dbc.Row(
+            [
+                dbc.Col(
+                    [
+                        html.Div(
+                            [
+                                html.H6("Crime Type:"),
+                                dcc.Dropdown(
+                                    id="crime_type",
+                                    value=None,  # REQUIRED to show the plot on the first page load
+                                    options=[
+                                        {"label": col, "value": col}
+                                        for col in ["Aggravated Assault", "Homicide", "Rape", "Robbery", "Total"]
+                                    ],
+                                ),
+                            ]
+                        ),
+                        html.Div(
+                            [
+                                html.H6("Year:"),
+                                dcc.Dropdown(
+                                    id="year_maps",
+                                    value=2015,  # REQUIRED to show the plot on the first page load
+                                    options=[
+                                        {"label": col, "value": col}
+                                        for col in df["year"].unique()
+                                    ],
+                                ),
+                            ]
+                        ),
+                    ],
+                    md=2,
+                    style={
+                        "background-color": "#e6e6e6",
+                        "padding": 10,
+                        "border-radius": 3,
+                    },
+                ),
+                dbc.Col(
+                    [
+                        html.Iframe(
+                        id = 'maps',
+                        style={'border-width': '0', 'width': '140%', 'height': '460px'})
+                    ], 
+                    md=8,
+                ),
+            ]      
+        ),
         dbc.Row(
             [
                 dbc.Col(
@@ -274,7 +326,7 @@ def plot_altair(state, city, year):
     Output("line_chart", "srcDoc"),
     Input("state", "value"),
     Input("city", "value"),
-    Input("yrange", "value"),
+    Input("yrange", "value")
 )
 def plot_altair(state, city, yrange):
 
@@ -367,6 +419,107 @@ def plot_altair(state, city, yrange):
 
     return chart.to_html()
 
+# Create Map plot 
+
+@app.callback(
+    Output('maps', 'srcDoc'),
+    Input('crime_type', 'value'),
+    Input("year_maps", "value"))
+
+def plot_map(crime_type, year_maps):
+    # create background map:
+    state_map = alt.topo_feature(data.us_10m.url, 'states')
+    
+    background = alt.Chart(state_map).mark_geoshape(
+        fill='#F5F5F5',
+        stroke='dimgray'
+    ).project(
+        'albersUsa'
+    )
+    
+    # If no input
+    if (crime_type is None):
+        chart = (background).configure_view(
+                height=420,
+                width=850,
+                strokeWidth=4,
+                fill=None,
+                stroke=None)
+        return chart.to_html()
+
+    # convert crime_type to corresponding colname
+    crime_col = {
+        "Aggravated Assault": "agg_ass_sum",
+        "Homicide": "homs_sum", 
+        "Rape": "rape_sum",
+        "Robbery": "rob_sum",
+        "Total": "violent_crime"
+    }
+    
+     # set up colors:
+    crime_color = {
+    "Aggravated Assault": alt.Scale(domain=list(np.linspace(df.agg_ass_sum.min(), df.agg_ass_sum.max(), 9).astype(int)),
+                range=['#7093B9', '#6584A7', '#5A7694', '#4E6782', '#43586F', '#384A5D', '#2D3B4A', '#222C37', '#161D25']),
+    "Homicide": alt.Scale(domain=list(np.linspace(df.homs_sum.min(), df.homs_sum.max(), 9).astype(int)),
+                range=['#F8AA5D', '#DF9954', '#C6884A', '#AE7741', '#956638', '#7C552F', '#634425', '#4A331C', '#322213']),
+    "Rape": alt.Scale(domain=list(np.linspace(df.rape_sum.min(), df.rape_sum.max(), 9).astype(int)),
+                range=['#EC8989', '#D47B7B', '#BD6E6E', '#A56060', '#8E5252', '#764545', '#5E3737', '#472929', '#2F1B1B']),
+    "Robbery":alt.Scale(domain=list(np.linspace(df.rob_sum.min(), df.rob_sum.max(), 9).astype(int)),
+                range=['#AAD4D1', '#99BFBC', '#88AAA7', '#779492', '#667F7D', '#556A69', '#445554', '#33403F', '#222A2A']),
+    "Total": alt.Scale(domain=list(np.linspace(df.violent_crime.min(), df.violent_crime.max(), 9).astype(int)),
+                range=['#77B56F', '#6BA364', '#5F9159', '#537F4E', '#476D43', '#3C5B38', '#30482C', '#243621', '#182416']),
+    }
+    
+    # adding id
+    state_ids = data.population_engineers_hurricanes()[['state', 'id']]
+    state_ids = state_ids.rename(columns = {'state': 'State'})
+    
+    # obtain data based on input
+    df_selected = df.loc[
+        (df.year == year_maps),
+        ["year", "state_name", crime_col[crime_type], "total_pop"]
+    ].groupby(['state_name'], as_index = False).sum()
+    
+    df_selected = df_selected.rename(columns = {
+        crime_col[crime_type] : crime_type,
+        'year': 'Year',
+        'total_pop': 'Population',
+        'state_name': 'State'
+    })
+    
+    df_complete = df_selected.merge(state_ids, on = 'State')
+
+    
+    # create foreground
+    map_click = alt.selection_multi(fields=['State'])
+    foreground = (alt.Chart(state_map).mark_geoshape().transform_lookup(
+        lookup = 'id',
+        from_ = alt.LookupData(
+            df_complete,
+            'id',
+            ['State','Population', crime_type]
+        )
+    ).mark_geoshape(
+        stroke='black',
+        strokeWidth=0.5
+    ).encode(
+        color=alt.Color(crime_type+':Q', scale=crime_color[crime_type]), opacity=alt.condition(map_click, alt.value(1), alt.value(0.7)),
+        tooltip=[alt.Tooltip('State:O'),
+                 alt.Tooltip('Population:O'),
+                 alt.Tooltip(crime_type+':O')]
+    ).add_selection(map_click).project(
+        type='albersUsa'
+    ))
+
+
+    chart = (background + foreground).configure_view(
+                height=420,
+                width=850,
+                strokeWidth=4,
+                fill=None,
+                stroke=None)
+
+    return chart.to_html()
 
 if __name__ == "__main__":
     app.run_server(debug=True)
