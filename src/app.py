@@ -513,8 +513,8 @@ def plot_map(crime_type, year_maps):
 
 
     chart = (background + foreground).configure_view(
-                height=420,
-                width=850,
+                height=400,
+                width=800,
                 strokeWidth=4,
                 fill=None,
                 stroke=None)
