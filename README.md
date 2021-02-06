@@ -1,10 +1,13 @@
 # Violent Crime Visualizer in US Cities
-
-Team members: Fei Chang, Mengyuan Zhu, Jingjing Zhi, Pan Fan
+## Team members: 
+- Fei Chang [@fei-chang](https://github.com/fei-chang)
+- Mengyuan Zhu [@Julie-M-Zhu](https://github.com/Julie-M-Zhu)
+- Jingjing Zhi [@zhijingjing1](https://github.com/zhijingjing1)
+- Pan Fan [@pan1fan2](https://github.com/pan1fan2)
 
 ## Description of App
 
-The deployment on heroku:crimeviz.herokuapp.com.
+Deployed dashboard on heroku: https://mds-crimeviz.herokuapp.com/
 
 The interactive app contains a landing page that shows bar charts of major violent crimes in a US city over decades. The data visualization tool sums up the number of crimes per 100k capita in four categories and a total number of criminal conducts. The app aims to facilitate people for making decisions to move into a new city. 
 
@@ -14,12 +17,13 @@ In general, the dashboard can clearly display the number of violent crimes in st
 
 ## Display of the dashboard
 
-![](dash_1.png)
-![](dash_2.png)
+![](dash_hist.png)
+![](dash_line.png)
+![](dash_map.png)
 
 ## Requirements
 
-Please check the requirements.txt in this repo.
+Please check the [requirements](https://github.com/UBC-MDS/mds532_viz_group25/blob/main/requirements.txt) in this repo.
 
 ## License
 
