@@ -1,9 +1,9 @@
 # Violent Crime Visualizer in US Cities
 ## Team members: 
-- Fei Chang @fei-chang
-- Mengyuan Zhu @Julie-M-Zhu
-- Jingjing Zhi @zhijingjing1
-- Pan Fan @pan1fan2
+- Fei Chang [@fei-chang](https://github.com/fei-chang)
+- Mengyuan Zhu [@Julie-M-Zhu](https://github.com/Julie-M-Zhu)
+- Jingjing Zhi [@zhijingjing1](https://github.com/zhijingjing1)
+- Pan Fan [@pan1fan2](https://github.com/pan1fan2)
 
 ## Description of App
 
