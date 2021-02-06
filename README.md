@@ -17,12 +17,13 @@ In general, the dashboard can clearly display the number of violent crimes in st
 
 ## Display of the dashboard
 
-![](dash_1.png)
-![](dash_2.png)
+![](dash_hist.png)
+![](dash_line.png)
+![](dash_map.png)
 
 ## Requirements
 
-Please check the requirements.txt in this repo.
+Please check the [requirements](https://github.com/UBC-MDS/mds532_viz_group25/blob/main/requirements.txt) in this repo.
 
 ## License
 

@@ -1,7 +1,9 @@
 pandas
 gunicorn
 altair
+numpy
 dash==1.18.1
 dash_bootstrap_components
 plotly==4.14.3
 datetime
+vega_datasets
