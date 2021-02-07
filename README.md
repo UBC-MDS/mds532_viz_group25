@@ -9,17 +9,19 @@
 
 Deployed dashboard on heroku: https://mds-crimeviz.herokuapp.com/
 
-The interactive app contains a landing page that shows bar charts of major violent crimes in a US city over decades. The data visualization tool sums up the number of crimes per 100k capita in four categories and a total number of criminal conducts. The app aims to facilitate people for making decisions to move into a new city. 
+The interactive app contains a landing page that shows a U.S. map, a bar chart and a line chart. The data visualization tool sums up the number of crimes per 100k capita in four categories and a total number of violent crimes. The app aims to facilitate people for assessing the safety in the selected state and/or city. 
 
-The app is set to display the average criminal conducts of all cities in each year. The app allows users to filter out the specific information geographically and chronologically from the dropdown and slider bar menus on the left. For example, a user can find the state of interest from the `State` dropdown menu. After picking a state, the user can also specify a city/county in the state from the `City` dropdown menu. If a user does not specify a city, the app is set to show the average criminal conducts of the selected state. Furthermore, the user can specify the time period to display the bar charts from the slider bar. Probably, the crimes over the recent decade are more informative.
+The map can first provides a quick view on how each type of crimes is distributed in U.S. on a specific year.Then the bar chart provides a detailed result for each city. The line chart serves the purpose of showing the evolution of each crime type together with the total violent crimes.
 
-In general, the dashboard can clearly display the number of violent crimes in state or city of interest. A user can assess their safety before relocating to a new city.
+The map is by default set to show the background map of U.S. cities, the bar chart is by default set to show the summative results of the state of California at 2015 and the line chart is to show the evolutions of summative results of the state of California.
+
+The app allows users to filter out the specific information geographically and chronologically from the dropdown and slider bar menus below the line chart. For example, a user can find the state of interest from the `State` dropdown menu. After picking a state, the user can also specify a city/county in the state from the `City` dropdown menu. Furthermore, the user can specify the time period to display the line chart from the slider bar. Probably, the crime data over the recent decade are more informative.
+
+In general, the dashboard can clearly display the numbers of violent crimes in selected state and city.
 
 ## Display of the dashboard
 
-![](dash_hist.png)
-![](dash_line.png)
-![](dash_map.png)
+![](demo.gif)
 
 ## Requirements
 
